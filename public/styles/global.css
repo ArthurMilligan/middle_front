@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter';
+    color:#1E1E1E;
+}
+a{
+    text-decoration: none;
+}
+main {
+    width: 100%;
+}
+.Button{
+    color: #FFFFFF;
+    background-color: #3369F3;
+    height: 37px;
+    width: 280px;
+    border:none;
+    border-radius: 8px;
+    padding: 0;
+}

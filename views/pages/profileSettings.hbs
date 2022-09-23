@@ -1,0 +1,36 @@
+{{!< profileBase}}
+<div class='profileSettings'>
+    <form class='profileSettings__form'>
+        {{>profileAvatar/profileAvatar}}
+        <label class ='profileSettings__label'>
+            <input name='avatar' class="profileSettings__changeAvatar" type='file'>
+            <span class='profileSettings__avatar'>Сменить аватар</span>
+        </label>
+        
+        <div class='profileSettings__wrapper'>
+            <span class='profileSettings__property'>Почта</span>
+            <input type='text' value='pochta@pochta.ru' name='email'  class='profileSettings__input' />
+        </div>
+        <div class='profileSettings__wrapper'>
+            <span class='profileSettings__property'>Логин</span>
+            <input type='text' value='ivandestroyer' name='login' class='profileSettings__input' />
+        </div>
+        <div class='profileSettings__wrapper'>
+            <span class='profileSettings__property'>Имя</span>
+            <input type='text' value='Иван' name='first_name' class='profileSettings__input' />
+        </div>
+        <div class='profileSettings__wrapper'>
+            <span class='profileSettings__property'>Фамилия</span>
+            <input type='text' value='Иванов' name='second_name' class='profileSettings__input' />
+        </div>
+        <div class='profileSettings__wrapper'>
+            <span class='profileSettings__property'>Имя в чате</span>
+            <input type='text' value='Ванек' name='display_name' class='profileSettings__input' />
+        </div>
+        <div class='profileSettings__wrapper'>
+            <span class='profileSettings__property'>Телефон</span>
+            <input type='text' value='+7 (909) 967 30 30' name='phone' class='profileSettings__input' />
+        </div>
+        {{>button/button buttonText="Сохранить" buttonName="save"}}
+    </form>
+</div>

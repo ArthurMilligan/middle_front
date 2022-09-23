@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../../public/styles/chatList.scss" />
+  <link rel="stylesheet" href="../../public/styles/fonts.css" />
+  <link rel="stylesheet" href="../../public/styles/global.css" />
+  <title>
+    Chats
+  </title>
+</head>
+
+<body>
+  <nav class='bar'>
+    <a class = 'bar__profileUrl' href="./profile.hbs">Профиль ></a>
+    {{>search/search}}
+    <div class='chatList'>
+      {{#each chats}}
+      {{> chat/chat}}
+      
+      {{/each}}
+    </div>
+  </nav>
+  <main>
+    {{{body}}}
+  </main>
+</body>
+
+</html>
