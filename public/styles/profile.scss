@@ -5,12 +5,12 @@ main{
 .sideBar{
     width: 64px;
     height: 100vh;
-    background-color: #FBFBFB;
+    background-color: #fbfbfb;
     display: flex;
     justify-content: center;
     align-items: center;
     &__chatLink{
-        background-color: #3369F3;
+        background-color: #3369f3;
         height: 28px;
         width: 28px;
         border-radius: 50px;
@@ -57,7 +57,7 @@ main{
         justify-content: space-between;
         padding:0 0 10px 0;
         margin:0 0 10px 0;
-        border-bottom: 1px solid #EAEAEA;
+        border-bottom: 1px solid #eaeaea;
         &:last-of-type{
             border-bottom:none;
         }
@@ -66,15 +66,15 @@ main{
         width: 510px;
         padding: 0 0 10px 0;
         margin:0 0 10px 0;
-        border-bottom: 1px solid #EAEAEA;
-        color:#3369F3;
+        border-bottom: 1px solid #eaeaea;
+        color:#3369f3;
         font-weight: 700;
         font-size: 13px;
         line-height: 13px;
     }
     &__logoutLink{
         width: 510px;
-        color:#FF0000;
+        color:#ff0000;
         font-weight: 700;
         font-size: 13px;
         line-height: 13px;
@@ -90,7 +90,7 @@ main{
     height: 130px;
     border-radius: 50%;
     overflow: hidden;
-    border: 1px solid #3369F3;
+    border: 1px solid #3369f3;
     margin:20px 0 20px 0;
     position: relative;
     &__img {
@@ -119,10 +119,10 @@ main{
         justify-content: space-between;
         padding:0 0 10px 0;
         margin:0 0 10px 0;
-        border-bottom: 1px solid #EAEAEA;
+        border-bottom: 1px solid #eaeaea;
         &:last-of-type{
             border-bottom:none;
-            margin:0 0 60px 0;
+            margin:0 0 71px 0;
         }
     }
     &__property {
@@ -146,7 +146,7 @@ main{
 .profileSettings{
     @include settingPages;
     &__avatar{
-        color:#3369F3;
+        color:#3369f3;
         font-weight: 800;
         font-size: 16px;
         line-height: 16px;

@@ -19,3 +19,9 @@ main {
     border-radius: 8px;
     padding: 0;
 }
+.errorMessage{
+    color:red;
+    font-size: 9px;
+    height: 11px;
+    margin: 0 0 5px 0
+}

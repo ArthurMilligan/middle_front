@@ -38,13 +38,14 @@ main{
         line-height: 9px;
     }
     &__field{
+        width: 100%;
         font-weight: 500;
         font-size: 13px;
         line-height: 13px;
         padding:7px 0 7px 0;
         background-color: transparent;
         border: none;
-        border-bottom: 1px solid #3369F3;
+        border-bottom: 1px solid #3369f3;
         &:focus {
             outline: none;
         }
@@ -52,7 +53,7 @@ main{
     &__link{
         width: fit-content;
         margin: 15px 0 0 0;
-        color: #3369F3;
+        color: #3369f3;
         font-weight: 500;
         font-size: 11px;
         line-height: 11px;
