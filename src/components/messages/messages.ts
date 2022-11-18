@@ -1,32 +1,44 @@
-import {Block} from '../../core';
+import { Block } from "../../core";
+import ws from "../../services/ws";
 
 type IMessage = {
-	isOwn: boolean;
-	messageText: string;
-	messageTime: string;
+    isOwn: boolean;
+    userId: string|number;
+    messageText: string;
+    messageTime: string;
 };
 type IMessagesProps = {
-	avatar: string;
-	name: string;
-	messages: IMessage[];
+    id: string;
+    avatar: string;
+    name: string;
+    messages: IMessage[];
+    isActive: boolean;
+    setIsActive:(isActive:boolean)=>void;
+
 };
 
-export class Messages extends Block {
-	constructor({avatar, name, messages}: IMessagesProps) {
-		super({avatar, name, messages});
+class Messages extends Block {
+	constructor({  avatar, name, isActive,setIsActive, messages, id }: IMessagesProps) {
+		super({ avatar, name, isActive,setIsActive, messages, id });
 		this.setProps({
-			onSubmit: () => {
-				console.log((this.refs.send.getContent().firstElementChild as HTMLInputElement).value);
+			onSubmit: (e: SubmitEvent) => {
+				e.preventDefault();
+				const text = (e?.srcElement as any)[0]?.value;
+				ws.send(+id, text);
+				return false;
 			},
 		});
 	}
 
 	protected render(): string {
+		console.log(this.props.messages);
 		return (`
         <div class="messagePage">
             {{{MessageHeader
                 avatar=avatar
                 name=name
+                isActive=isActive
+                setIsActive=setIsActive
             }}}
             <div class='messagePage__messages'>
                 {{#each messages}}
@@ -37,6 +49,7 @@ export class Messages extends Block {
                         }}}
                     {{else}}
                     {{{Message
+                        userId = userId
                         messageText=messageText
                         messageTime=messageTime
                     }}}
@@ -50,3 +63,4 @@ export class Messages extends Block {
         `);
 	}
 }
+export default Messages;

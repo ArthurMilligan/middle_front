@@ -1,8 +1,54 @@
 .body {
     display: flex;
 }
-
-
+.popup{
+    position: absolute;
+    width: 20%;
+    height: 250px;
+    background-color: white;
+    right: 40%;
+    top:200px;
+    border-radius: 12px;
+    &__container{
+        margin:60px 0 0 0;
+    }
+    &__button{
+        width: 40%;
+        margin: 25px 0 0 0;
+    }
+    &__fieldName{
+        color: #999999;
+        font-weight: 500;
+        font-size: 9px;
+        line-height: 9px;
+    }
+    &__field{
+        width: 100%;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 13px;
+        padding:7px 0 7px 0;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #3369f3;
+        &:focus {
+            outline: none;
+        }
+    }
+    &__form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    &__background{
+        width: 100%;
+        height: 1300px;
+        position: fixed;
+        left:0px;
+        background: rgba(0, 0, 0, 0.4);
+    }
+}
 .chat {
     width: 290px;
     border-top: 1px solid #eaeaea;
@@ -129,6 +175,7 @@
 }
 
 .messagePage {
+    width: 100%;
     &__messages {
         overflow-y: scroll;
         height: 81vh;
@@ -153,6 +200,21 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    &__menu{
+        width: 210px;
+        height: 90px;
+        position: absolute;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+        border-radius: 12px;
+        z-index: 1;
+        right: 10px;
+        top: 70px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around
+    }
 
     &__avatar {
         width: 35px;
@@ -178,6 +240,18 @@
         font-weight: 600;
         font-size: 13px;
         line-height: 13px;
+    }
+    &__options{
+        &:hover{
+            color:red;
+            cursor: pointer;
+        }
+    }
+    &__menuItem{
+        &:hover{
+            color:red;
+            cursor: pointer;
+        }
     }
 }
 

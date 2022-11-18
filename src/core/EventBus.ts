@@ -31,4 +31,7 @@ export default class EventBus<E extends string = string, M extends {[K in E]: un
 			listener(...args);
 		});
 	}
+	destroy() {
+		this.listeners = {};
+	}
 }

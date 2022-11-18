@@ -1,1 +1,2 @@
-export {MessagePage as default} from './messagePage';
+import MessagePage from "./messagePage";
+export default MessagePage;

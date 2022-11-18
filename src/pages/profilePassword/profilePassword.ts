@@ -1,18 +1,29 @@
-import {Block} from '../../core';
-import validator from '../../helpers/validator';
+import { updateUserPassword } from "./../../services/update";
+import {Block} from "../../core";
+import { withStore } from "../../helpers";
+import validator from "../../helpers/validator";
 
-export class ProfilePassword extends Block {
+interface IProfilePasswordProps{
+	avatar?:string
+}
+class ProfilePassword extends Block {
+	constructor(props:IProfilePasswordProps ) {
+		super(props);
+		this.setProps({
+			avatar: this.props.store?.getState().user.avatar,
+		});
+	}
 	protected getStateFromProps() {
 		this.state = {
 			values: {
-				oldPassword: '',
-				confirmPassword: '',
-				newPassword: '',
+				oldPassword: "",
+				confirmPassword: "",
+				newPassword: "",
 			},
 			errors: {
-				oldPassword: '',
-				confirmPassword: '',
-				newPassword: '',
+				oldPassword: "",
+				confirmPassword: "",
+				newPassword: "",
 			},
 			onSave: () => {
 				const loginData = {
@@ -24,19 +35,24 @@ export class ProfilePassword extends Block {
 				const nextState = {
 					...this.state,
 					errors: {
-						oldPassword: '',
-						confirmPassword: '',
-						newPassword: validator('newPassword', loginData.newPassword),
+						oldPassword: "",
+						confirmPassword: "",
+						newPassword: validator("newPassword", loginData.newPassword),
 					},
 					values: {...loginData},
 				};
-				if (nextState.values.newPassword !== nextState.values.confirmPassword || nextState.values.confirmPassword === '') {
-					nextState.errors.confirmPassword = 'Разные пароли';
+				if (nextState.values.newPassword !== nextState.values.confirmPassword || nextState.values.confirmPassword === "") {
+					nextState.errors.confirmPassword = "Разные пароли";
 				}
 
 				this.setState(nextState);
+				if (!nextState.errors.oldPassword && !nextState.errors.confirmPassword && !nextState.errors.newPassword) {
+					console.log(this.props.store);
+					this.props.store.dispatch(updateUserPassword, loginData);
+				}
 
-				console.log('action/save', loginData);
+
+				console.log("action/save", loginData);
 			},
 			onBlur: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
@@ -53,26 +69,27 @@ export class ProfilePassword extends Block {
 					},
 					values: {...this.state.values, ...loginData},
 				};
-				if (inputName === 'confirmPassword' && nextState.values.newPassword !== nextState.values.confirmPassword) {
-					nextState.errors.confirmPassword = 'Разные пароли';
+				if (inputName === "confirmPassword" && nextState.values.newPassword !== nextState.values.confirmPassword) {
+					nextState.errors.confirmPassword = "Разные пароли";
 				}
 
 				this.setState(nextState);
 			},
 			onFocus: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
-				this.refs[inputName + 'Error'].setProps({error: ''});
+				this.refs[inputName + "Error"].setProps({error: ""});
 			},
 		};
 	}
 
 	protected render(): string {
 		const {errors, values} = this.state;
+		const {avatar} = this.props;
 		return (`
         <main>
             {{{SideBar}}}
             <div class='profilePassword'>
-                {{{ProfileAvatar}}}
+                {{{ProfileAvatar avatar='${avatar}'}}}
                 <form class='profilePassword__form'>
                     <div class='profilePassword__wrapper'>
                         <span class='profilePassword__property'>Старый пароль</span>
@@ -123,3 +140,5 @@ export class ProfilePassword extends Block {
         `);
 	}
 }
+
+export default withStore(ProfilePassword);

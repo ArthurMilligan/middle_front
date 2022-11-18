@@ -1,4 +1,5 @@
-import {Block} from '../../core';
+import {Block} from "../../core";
+import { formatDate } from "../../helpers/formateDate";
 
 type IUserMessageProps = {
 	messageText: string;
@@ -11,11 +12,12 @@ export class UserMessage extends Block {
 	}
 
 	render() {
+		const formattedDate = formatDate(this.props.messageTime);
 		return (`
         <div class = 'userMessage'>
             <div class = 'userMessage__container'>
                 <span class = 'userMessage__text'>{{messageText}}</span>
-                <span class = 'userMessage__date'>{{messageTime}}</span>
+                <span class = 'userMessage__date'>${formattedDate}</span>
             </div>
         </div>
         `);

@@ -1,26 +1,26 @@
-import {Block} from '../../core';
-import validator from '../../helpers/validator';
+import {Block} from "../../core";
+import validator from "../../helpers/validator";
 
 export class ProfileSettings extends Block {
 	protected getStateFromProps() {
 		this.state = {
 			values: {
-				login: '',
-				email: '',
-				first_name: '',
-				second_name: '',
-				phone: '',
-				avatar: '',
-				display_name: '',
+				login: "",
+				email: "",
+				first_name: "",
+				second_name: "",
+				phone: "",
+				avatar: "",
+				display_name: "",
 			},
 			errors: {
-				login: '',
-				email: '',
-				first_name: '',
-				second_name: '',
-				phone: '',
-				avatar: '',
-				display_name: '',
+				login: "",
+				email: "",
+				first_name: "",
+				second_name: "",
+				phone: "",
+				avatar: "",
+				display_name: "",
 			},
 			onSave: () => {
 				const signinData = {
@@ -37,13 +37,13 @@ export class ProfileSettings extends Block {
 				const nextState = {
 					...this.state,
 					errors: {
-						login: validator('login', signinData.login),
-						email: validator('email', signinData.email),
-						first_name: validator('first_name', signinData.first_name),
-						second_name: validator('second_name', signinData.second_name),
-						phone: validator('phone', signinData.phone),
-						avatar: '',
-						display_name: '',
+						login: validator("login", signinData.login),
+						email: validator("email", signinData.email),
+						first_name: validator("first_name", signinData.first_name),
+						second_name: validator("second_name", signinData.second_name),
+						phone: validator("phone", signinData.phone),
+						avatar: "",
+						display_name: "",
 
 					},
 					values: {...signinData},
@@ -51,7 +51,7 @@ export class ProfileSettings extends Block {
 
 				this.setState(nextState);
 
-				console.log('action/save', signinData);
+				console.log("action/save", signinData);
 			},
 			onBlur: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
@@ -72,7 +72,7 @@ export class ProfileSettings extends Block {
 			},
 			onFocus: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
-				this.refs[inputName + 'Error'].setProps({error: ''});
+				this.refs[inputName + "Error"].setProps({error: ""});
 			},
 		};
 	}

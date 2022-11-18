@@ -1,26 +1,28 @@
-import Block from '../../core/Block';
-import validator from '../../helpers/validator';
+import Block from "../../core/Block";
+import { withRouter, withStore } from "../../helpers";
+import validator from "../../helpers/validator";
+import { signin } from "../../services/auth";
 
-export class Signin extends Block {
+class Signin extends Block {
 	protected getStateFromProps() {
 		this.state = {
 			values: {
-				login: '',
-				password: '',
-				email: '',
-				first_name: '',
-				second_name: '',
-				phone: '',
-				confirmPassword: '',
+				login: "",
+				password: "",
+				email: "",
+				first_name: "",
+				second_name: "",
+				phone: "",
+				confirmPassword: "",
 			},
 			errors: {
-				login: '',
-				password: '',
-				email: '',
-				first_name: '',
-				second_name: '',
-				phone: '',
-				confirmPassword: '',
+				login: "",
+				password: "",
+				email: "",
+				first_name: "",
+				second_name: "",
+				phone: "",
+				confirmPassword: "",
 			},
 			onRegister: () => {
 				const signinData = {
@@ -36,23 +38,32 @@ export class Signin extends Block {
 				const nextState = {
 					...this.state,
 					errors: {
-						login: validator('login', signinData.login),
-						password: validator('password', signinData.password),
-						email: validator('email', signinData.email),
-						first_name: validator('first_name', signinData.first_name),
-						second_name: validator('second_name', signinData.second_name),
-						phone: validator('phone', signinData.phone),
-						confirmPassword: validator('confirmPassword', signinData.confirmPassword),
+						login: validator("login", signinData.login),
+						password: validator("password", signinData.password),
+						email: validator("email", signinData.email),
+						first_name: validator("first_name", signinData.first_name),
+						second_name: validator("second_name", signinData.second_name),
+						phone: validator("phone", signinData.phone),
+						confirmPassword: validator("confirmPassword", signinData.confirmPassword),
 					},
 					values: {...signinData},
 				};
-				if (nextState.values.password !== nextState.values.confirmPassword || nextState.values.confirmPassword === '') {
-					nextState.errors.confirmPassword = 'Разные пароли';
+				if (nextState.values.password !== nextState.values.confirmPassword || nextState.values.confirmPassword === "") {
+					nextState.errors.confirmPassword = "Разные пароли";
 				}
 
 				this.setState(nextState);
 
-				console.log('action/registration', signinData);
+				if (!nextState.errors.login && !nextState.errors.password 
+                    && !nextState.errors.email && !nextState.errors.first_name 
+                    && !nextState.errors.second_name && !nextState.errors.phone 
+                    && !nextState.errors.confirmPassword) {
+					console.log(this.props.store);
+					this.props.store.dispatch(signin, signinData);
+				}
+                
+
+				console.log("action/registration", signinData);
 			},
 			onBlur: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
@@ -69,15 +80,15 @@ export class Signin extends Block {
 					},
 					values: {...this.state.values, ...signinData},
 				};
-				if (inputName === 'confirmPassword' && nextState.values.password !== nextState.values.confirmPassword) {
-					nextState.errors.confirmPassword = 'Разные пароли';
+				if (inputName === "confirmPassword" && nextState.values.password !== nextState.values.confirmPassword) {
+					nextState.errors.confirmPassword = "Разные пароли";
 				}
 
 				this.setState(nextState);
 			},
 			onFocus: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
-				this.refs[inputName + 'Error'].setProps({error: ''});
+				this.refs[inputName + "Error"].setProps({error: ""});
 			},
 		};
 	}
@@ -189,9 +200,10 @@ export class Signin extends Block {
                     </div>
                     {{{Button buttonText="Зарегистрироваться" buttonName="Register" onClick=onRegister}}}
                 </form>
-                <a class='signin__link' href='./index.html'>Войти</a>
+                <a class='signin__link' href='./'>Войти</a>
             </div>
         </main>
         `);
 	}
 }
+export default  withStore(Signin);

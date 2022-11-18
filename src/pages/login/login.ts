@@ -1,16 +1,18 @@
-import {Block} from '../../core';
-import validator from '../../helpers/validator';
+import { Block } from "../../core";
+import { withStore } from "../../helpers";
+import validator from "../../helpers/validator";
+import { login } from "../../services/auth";
 
-export class Login extends Block {
+class Login extends Block {
 	protected getStateFromProps() {
 		this.state = {
 			values: {
-				login: '',
-				password: '',
+				login: "",
+				password: "",
 			},
 			errors: {
-				login: '',
-				password: '',
+				login: "",
+				password: "",
 			},
 			onLogin: () => {
 				const loginData = {
@@ -21,14 +23,17 @@ export class Login extends Block {
 				const nextState = {
 					...this.state,
 					errors: {
-						login: validator('login', loginData.login),
-						password: validator('password', loginData.password),
+						login: validator("login", loginData.login),
+						password: validator("password", loginData.password),
 					},
-					values: {...loginData},
+					values: { ...loginData },
 				};
 				this.setState(nextState);
-
-				console.log('action/login', loginData);
+				if (!nextState.errors.login && !nextState.errors.password) {
+					console.log(login,loginData);
+					console.log(this.props.store);
+					this.props.store.dispatch(login, loginData);
+				}
 			},
 			onBlur: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
@@ -43,19 +48,19 @@ export class Login extends Block {
 						...this.state.errors,
 						[inputName]: validator(inputName, loginData[inputName]),
 					},
-					values: {...this.state.values, ...loginData},
+					values: { ...this.state.values, ...loginData },
 				};
 				this.setState(nextState);
 			},
 			onFocus: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
-				this.refs[inputName + 'Error'].setProps({error: ''});
+				this.refs[inputName + "Error"].setProps({ error: "" });
 			},
 		};
 	}
 
 	protected render(): string {
-		const {errors, values} = this.state;
+		const { errors, values } = this.state;
 		return (`
         <main>
             <div class='signin'>
@@ -91,9 +96,10 @@ export class Login extends Block {
                     </div>
                     {{{Button buttonText="Вход" buttonName="Enter" onClick=onLogin}}}
                 </form>
-                <a class='signin__link' href='./signin.html'>Нет аккаунта?</a>
+                <a class='signin__link' href='./signin'>Нет аккаунта?</a>
             </div>
         </main>
         `);
 	}
 }
+export default withStore(Login);

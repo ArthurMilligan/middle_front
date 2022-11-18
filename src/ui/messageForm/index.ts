@@ -1,1 +1,1 @@
-export {MessageForm as default} from './messageForm';
+export {MessageForm as default} from "./messageForm";

@@ -1,1 +1,1 @@
-export {ErrorBanner as default} from './errorBanner';
+export {ErrorBanner as default} from "./errorBanner";

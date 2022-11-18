@@ -1,1 +1,3 @@
-export {ProfilePassword as default} from './profilePassword';
+import ProfilePassword from "./profilePassword";
+
+export default ProfilePassword;

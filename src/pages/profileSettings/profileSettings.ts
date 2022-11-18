@@ -1,26 +1,56 @@
-import {Block} from '../../core';
-import validator from '../../helpers/validator';
+import { updateUserAvatar } from "./../../services/update";
+import {Block} from "../../core";
+import { withStore } from "../../helpers";
+import validator from "../../helpers/validator";
+import { updateUserInfo } from "../../services/update";
+interface IProfileSettingsprops{
+    avatar:string;
+}
 
-export class ProfileSettings extends Block {
+class ProfileSettings extends Block {
+	constructor(props: IProfileSettingsprops) {
+		super(props);
+		this.setProps({
+			avatar: this.props.store?.getState().user.avatar,
+			login: this.props.store?.getState().user.login,
+			email: this.props.store?.getState().user.email,
+			first_name: this.props.store?.getState().user.firstName,
+			second_name: this.props.store?.getState().user.secondName,
+			phone: this.props.store?.getState().user.phone,
+			display_name: this.props.store?.getState().user.displayName,           
+		});
+	}
+	componentDidMount(){
+		this.setState({...this.state, values:{
+			login: this.props.login,
+			email: this.props.email,
+			first_name: this.props.first_name,
+			second_name: this.props.second_name,
+			phone: this.props.phone,
+			avatar: "",
+			display_name: this.props.display_name || "",
+		}});
+	}
 	protected getStateFromProps() {
+		console.log(this.props);
 		this.state = {
 			values: {
-				login: '',
-				email: '',
-				first_name: '',
-				second_name: '',
-				phone: '',
-				avatar: '',
-				display_name: '',
+				login: "",
+				email: "",
+				first_name: "",
+				second_name: "",
+				phone: "",
+				avatar: "",
+				display_name: "",
 			},
 			errors: {
-				login: '',
-				email: '',
-				first_name: '',
-				second_name: '',
-				phone: '',
-				avatar: '',
-				display_name: '',
+				login: "",
+				email: "",
+				first_name: "",
+				second_name: "",
+				phone: "",
+				avatar: "",
+				display_name: "",
 			},
 			onSave: () => {
 				const signinData = {
@@ -29,7 +59,7 @@ export class ProfileSettings extends Block {
 					first_name: (this.refs.first_name.getContent() as HTMLInputElement).value,
 					second_name: (this.refs.second_name.getContent() as HTMLInputElement).value,
 					phone: (this.refs.phone.getContent() as HTMLInputElement).value,
-					avatar: (this.refs.avatar.getContent() as HTMLInputElement).value,
+					avatar: (this.refs.avatar.getContent() as HTMLInputElement).files,
 					display_name: (this.refs.display_name.getContent() as HTMLInputElement).value,
 
 				};
@@ -37,21 +67,30 @@ export class ProfileSettings extends Block {
 				const nextState = {
 					...this.state,
 					errors: {
-						login: validator('login', signinData.login),
-						email: validator('email', signinData.email),
-						first_name: validator('first_name', signinData.first_name),
-						second_name: validator('second_name', signinData.second_name),
-						phone: validator('phone', signinData.phone),
-						avatar: '',
-						display_name: '',
+						login: validator("login", signinData.login),
+						email: validator("email", signinData.email),
+						first_name: validator("first_name", signinData.first_name),
+						second_name: validator("second_name", signinData.second_name),
+						phone: validator("phone", signinData.phone),
+						avatar: "",
+						display_name: "",
 
 					},
 					values: {...signinData},
 				};
 
 				this.setState(nextState);
+				if (!nextState.errors.login && !nextState.errors.email && !nextState.errors.first_name 
+                    && !nextState.errors.second_name && !nextState.errors.phone && !nextState.errors.avatar && !nextState.errors.display_name) {
+					console.log(this.props.store);
+					this.props.store.dispatch(updateUserInfo, signinData);
+					if(nextState.values.avatar){
+						console.log(signinData.avatar);
+						this.props.store.dispatch(updateUserAvatar, signinData.avatar);
+					}
+				}
 
-				console.log('action/save', signinData);
+				console.log("action/save", signinData);
 			},
 			onBlur: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
@@ -72,20 +111,20 @@ export class ProfileSettings extends Block {
 			},
 			onFocus: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
-				this.refs[inputName + 'Error'].setProps({error: ''});
+				this.refs[inputName + "Error"].setProps({error: ""});
 			},
 		};
 	}
 
 	protected render(): string {
 		const {errors, values} = this.state;
-
+		const {avatar} = this.props;
 		return (`
         <main>
             {{{SideBar}}}
             <div class='profileSettings'>
             <form class='profileSettings__form'>
-                {{{ProfileAvatar}}}
+                {{{ProfileAvatar avatar='${avatar}'}}}
                 <label class ='profileSettings__label'>
                     {{{
                         Input
@@ -191,3 +230,4 @@ export class ProfileSettings extends Block {
         `);
 	}
 }
+export default withStore(ProfileSettings);
