@@ -17,6 +17,9 @@ export async function initApp(dispatch: Dispatch<AppState>) {
 		}
 		console.log(response.response);
 		dispatch({user: transformUser(response.response)});
+		if(window.location.pathname==="/"||window.location.pathname==="/signin"){
+			window.router.go("/messenger");
+		}
 	} catch (err: unknown) {
 		console.error(err);
 	} finally {
