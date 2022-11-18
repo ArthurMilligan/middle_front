@@ -1,9 +1,22 @@
-import { Block } from "../../core";
-import { withStore } from "../../helpers";
+import { Block, CoreRouter } from "../../core";
+import { withRouter, withStore } from "../../helpers";
 import validator from "../../helpers/validator";
 import { login } from "../../services/auth";
 
+interface ILoginProps{
+	router?: CoreRouter;
+}
+
 class Login extends Block {
+	static componentName = "Login";
+	constructor({router}:ILoginProps){
+		super({router});
+		this.setProps({
+			toSignin:()=>{
+				this.props.router.go("/signin");
+			}
+		});
+	}
 	protected getStateFromProps() {
 		this.state = {
 			values: {
@@ -96,10 +109,10 @@ class Login extends Block {
                     </div>
                     {{{Button buttonText="Вход" buttonName="Enter" onClick=onLogin}}}
                 </form>
-                <a class='signin__link' href='./signin'>Нет аккаунта?</a>
+				{{{Link linkText='Нет аккаунта?' className='signin__link' onClick=toSignin}}}
             </div>
         </main>
         `);
 	}
 }
-export default withStore(Login);
+export default withRouter(withStore(Login));

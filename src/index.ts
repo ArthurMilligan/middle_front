@@ -1,6 +1,7 @@
+import { Link } from "./ui/link/link";
 import { Loading } from "./ui/loading/loading";
 import {ProfileAvatar} from "./ui/profileAvatar/profileAvatar";
-import {SideBar} from "./ui/sideBar/sideBar";
+import SideBar from "./ui/sideBar/sideBar";
 import {Input} from "./ui/input/input";
 import {Button} from "./ui/button/Button";
 import {Message} from "./ui/message/message";
@@ -8,7 +9,7 @@ import {UserMessage} from "./ui/userMessage/userMessage";
 import MessageHeader from "./ui/messageHeader/messageHeader";
 import {MessageForm} from "./ui/messageForm/messageForm";
 import Messages from "./components/messages/messages";
-import {Start} from "./components/start/start";
+import Start from "./components/start";
 import ErrorBanner from "./ui/ErrorBanner";
 import Chat from "./ui/chat";
 import {Search} from "./ui/search/search";
@@ -34,6 +35,7 @@ registerComponent(ErrorBanner);
 registerComponent(SideBar);
 registerComponent(ProfileAvatar);
 registerComponent(PopUp);
+registerComponent(Link);
 
 document.addEventListener("DOMContentLoaded", () => {
 	// Let App;

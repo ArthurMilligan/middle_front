@@ -16,6 +16,7 @@ type IMessengerProps = {
 	onChange?:()=>void;
 	onClick?:(e: MouseEvent)=>void;
 	setIsActive?: (isActive:boolean)=>void;
+	toProfile?:()=>void;
 	usersSearch?:IUser[];
 	currentUser?:IUser;
 	choicedChatId?: number;
@@ -29,6 +30,9 @@ class MessagePage extends Block<IMessengerProps> {
 		this.props?.store?.dispatch(getChats, {limit: 10});
 		this.setState({isActive:false});
 		this.setProps({
+			toProfile:()=>{
+				this.props.router?.go("/profile");
+			},
 			onChange: () => {
 				const userName = (this.refs.search.getContent().firstElementChild as HTMLInputElement).value;
 				const nextValue = {value: (this.refs.search.getContent().firstElementChild as HTMLInputElement).value};
@@ -77,7 +81,7 @@ class MessagePage extends Block<IMessengerProps> {
 		return (`
         <div class='body'>
         <nav class='bar'>
-            <a class = 'bar__profileUrl' href="./profile">Профиль ></a>
+			{{{Link className='bar__profileUrl' linkText='Профиль >' onClick=toProfile}}}
             {{{Search onChange=onChange ref='search' value='${value}'}}}
             <div class='chatList'>
             {{#each usersSearch}}

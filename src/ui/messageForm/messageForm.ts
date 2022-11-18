@@ -9,6 +9,7 @@ type IMessageFormProps = {
 };
 
 export class MessageForm extends Block {
+	static componentName = "MessageForm";
 	constructor({onSubmit,onRegister}: IMessageFormProps) {
 		super({events: {submit: onSubmit}});
 	}

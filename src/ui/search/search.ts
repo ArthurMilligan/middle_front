@@ -5,6 +5,7 @@ type ISearchProps = {
 	value: string;
 };
 export class Search extends Block {
+	static componentName = "Search";
 	constructor({onChange, value}: ISearchProps) {
 		super({value, events: {change: onChange}});
 	}

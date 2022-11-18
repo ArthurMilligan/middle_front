@@ -1,9 +1,21 @@
+import { CoreRouter } from "./../../core/Router/CoreRouter";
 import Block from "../../core/Block";
 import { withRouter, withStore } from "../../helpers";
 import validator from "../../helpers/validator";
 import { signin } from "../../services/auth";
-
+interface ISigninProps{
+    router?:CoreRouter
+}
 class Signin extends Block {
+	static componentName = "Signin";
+	constructor({router}:ISigninProps){
+		super({router});
+		this.setProps({
+			toLogin:()=>{
+				this.props.router.go("/");
+			}
+		});
+	}
 	protected getStateFromProps() {
 		this.state = {
 			values: {
@@ -200,10 +212,10 @@ class Signin extends Block {
                     </div>
                     {{{Button buttonText="Зарегистрироваться" buttonName="Register" onClick=onRegister}}}
                 </form>
-                <a class='signin__link' href='./'>Войти</a>
+                {{{Link className='signin__link' linkText='Войти' onClick=toLogin}}}
             </div>
         </main>
         `);
 	}
 }
-export default  withStore(Signin);
+export default withRouter(withStore(Signin));

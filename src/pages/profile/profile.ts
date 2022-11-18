@@ -1,9 +1,10 @@
-import {Block} from "../../core";
+import {Block, CoreRouter} from "../../core";
 import { withRouter, withStore } from "../../helpers";
 import { logout } from "../../services/auth";
 
 
 interface IProfileProps{
+    router?: CoreRouter;
     login?: string;
     first_name?: string;
     second_name?: string;
@@ -14,9 +15,16 @@ interface IProfileProps{
 }
 
 class Profile extends Block {
+	static componentName = "Profile";
 	constructor(props: IProfileProps) {
 		super(props);
 		this.setProps({
+			toProfileSetting:()=>{
+				this.props.router.go("/profile-settings");
+			},
+			toProfilePassword:()=>{
+				this.props.router.go("/profile-password");
+			},
 			login: this.props.store?.getState().user.login,
 			first_name: this.props.store?.getState().user.firstName,
 			second_name: this.props.store?.getState().user.secondName,
@@ -62,8 +70,8 @@ class Profile extends Block {
                     <span class="profile__value">${phone}</span>
                 </div>
                 <div class="profile__settings">
-                    <a href="./profile-settings" class="profile__settingLink">Изменить данные</a>
-                    <a href="./profile-password" class="profile__settingLink">Изменить пароль</a>
+                    {{{Link className='profile__settingLink' linkText='Изменить данные' onClick=toProfileSetting}}}
+                    {{{Link className='profile__settingLink' linkText='Изменить пароль' onClick=toProfilePassword}}}
                     {{{Button buttonText="Выйти" buttonName="exit" onClick=onClick}}}
                 </div>
             </div>

@@ -8,6 +8,7 @@ interface IProfileAvatarProps{
 }
 
 export class ProfileAvatar extends Block {
+	static componentName = "ProfileAvatar";
 	constructor(props: IProfileAvatarProps) {
 		super(props);
 	}

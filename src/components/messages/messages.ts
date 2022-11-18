@@ -18,6 +18,7 @@ type IMessagesProps = {
 };
 
 class Messages extends Block {
+	static componentName = "Messages";
 	constructor({  avatar, name, isActive,setIsActive, messages, id }: IMessagesProps) {
 		super({ avatar, name, isActive,setIsActive, messages, id });
 		this.setProps({

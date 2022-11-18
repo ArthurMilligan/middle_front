@@ -11,6 +11,7 @@ type IInputProps = {
 };
 
 export class Input extends Block {
+	static componentName = "Input";
 	constructor({value, className, type, name, onFocus, onBlur, placeholder}: IInputProps) {
 		super({value, className, type, name, placeholder, events: {blur: onBlur, focus: onFocus}});
 	}

@@ -1,1 +1,2 @@
-export {Start as default} from "./start";
+import Start from "./start";
+export default Start;

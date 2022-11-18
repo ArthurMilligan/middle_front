@@ -1,10 +1,13 @@
+import { CoreRouter } from './../../core/Router/CoreRouter';
 import {Block} from "../../core";
 import { baseUrl } from "../../helpers/constant";
 import { formatDate } from "../../helpers/formateDate";
+import { withRouter } from '../../helpers';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const url = require("../../../public/img/avatar.jpg");
 
 type IChatProps = {
+    router:CoreRouter;
 	id: number;
 	name: string;
     lastMessageUser: string;
@@ -15,9 +18,10 @@ type IChatProps = {
 	onClick: (e: MouseEvent) => Record<string, unknown>;
 };
 
-export class Chat extends Block {
-	constructor({id, name, lastMessageUser, lastMessage, lastMessageTime, chatUnread, avatar, onClick}: IChatProps) {
-		super({id, name, lastMessageUser, lastMessage, lastMessageTime, chatUnread, avatar, events: {click: onClick}});
+class Chat extends Block {
+	static componentName = "Chat";
+	constructor({id, router, name, lastMessageUser, lastMessage, lastMessageTime, chatUnread, avatar, onClick}: IChatProps) {
+		super({id, router, name, lastMessageUser, lastMessage, lastMessageTime, chatUnread, avatar, events: {click: onClick}});
 	}
 
 	protected render() {
@@ -48,3 +52,5 @@ export class Chat extends Block {
         </a>`);
 	}
 }
+
+export default withRouter(Chat);

@@ -7,6 +7,7 @@ interface IProfilePasswordProps{
 	avatar?:string
 }
 class ProfilePassword extends Block {
+	static componentName = "ProfilePassword";
 	constructor(props:IProfilePasswordProps ) {
 		super(props);
 		this.setProps({

@@ -7,6 +7,7 @@ type IUserMessageProps = {
 };
 
 export class UserMessage extends Block {
+	static componentName = "UserMessage";
 	constructor({messageText, messageTime}: IUserMessageProps) {
 		super({messageText, messageTime});
 	}

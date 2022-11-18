@@ -8,6 +8,7 @@ type IMessageProps = {
 	userId:number|string;
 };
 export class Message extends Block {
+	static componentName = "Message";
 	constructor({userId,messageText, messageTime}: IMessageProps) {
 		super({userId, messageText, messageTime});
 		this.setProps({name:"", getName:async (id:number|string)=>{

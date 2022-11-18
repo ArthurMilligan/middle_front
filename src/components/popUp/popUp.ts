@@ -8,6 +8,7 @@ interface IPopUpProps{
     store?: Store<AppState>;
 }
 class PopUp extends Block {
+	static componentName = "PopUp";
 	constructor({activeAdd, chatId, store}: IPopUpProps) {
 		super({activeAdd, chatId, store});
 	}

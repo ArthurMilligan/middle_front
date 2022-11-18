@@ -8,6 +8,7 @@ interface IProfileSettingsprops{
 }
 
 class ProfileSettings extends Block {
+	static componentName = "ProfileSettings";
 	constructor(props: IProfileSettingsprops) {
 		super(props);
 		this.setProps({
