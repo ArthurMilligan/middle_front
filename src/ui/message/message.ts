@@ -12,16 +12,17 @@ export class Message extends Block {
 	constructor({userId,messageText, messageTime}: IMessageProps) {
 		super({userId, messageText, messageTime});
 		this.setProps({name:"", getName:async (id:number|string)=>{
-			if(!id){
-				return "";
+			try{
+				if(!id){
+					return "";
+				}
+				const response = await userAPI.searchById(id);
+				const user = JSON.parse((response as any).response);
+				return await user.first_name +" "+ user.second_name+": ";
+			}catch(err){
+				console.log(err);
 			}
-			const response = await userAPI.searchById(id);
-			const user = JSON.parse((response as any).response);
-			return await user.first_name +" "+ user.second_name+": ";
 		}});
-	}
-	componentDidMount(props: any): void {
-		this.setProps({name:this.props.getName(this.props.userId).then((result:any) =>result)});
 	}
 	render() {
 		const formattedDate = formatDate(this.props.messageTime);

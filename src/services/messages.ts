@@ -14,17 +14,22 @@ export const getChats = async (
 	state: AppState,
 	action: IGetChatsPayload,
 ) => {
-	dispatch({ isLoading: true });
+	try {
+		dispatch({ isLoading: true });
 
-	const response:any = await messagesAPI.chats(action);
+		const response:any = await messagesAPI.chats(action);
 
-	if (apiHasError(response)) {
-		dispatch({ isLoading: false, loginFormError: response.reason });
-		return;
+		if (apiHasError(response)) {
+			dispatch({ isLoading: false, loginFormError: response.reason });
+			return;
+		}
+		
+		dispatch({ isLoading: false, loginFormError: null });
+
+		dispatch({ users: transformChats(response.response)});
+	}catch(err){
+		dispatch({ isLoading: false });
+		console.log(err);
 	}
-	
-	dispatch({ isLoading: false, loginFormError: null });
-
-	dispatch({ users: transformChats(response.response)});
 };
 

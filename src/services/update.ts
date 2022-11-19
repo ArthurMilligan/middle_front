@@ -24,34 +24,39 @@ export const updateUserInfo = async (
 	state: AppState,
 	action: IUpdateUserInfoPayload,
 ) => {
-	dispatch({ isLoading: true });
-	let response;
-	response = await updateAPI.userInfo(action);
-	console.log(action?.avatar)
-	if(action?.avatar.length){
-		const formData = new FormData();
-		formData.append("avatar", action.avatar[0]);
-		response = await updateAPI.avatar(formData);
+	try{
+		dispatch({ isLoading: true });
+		let response;
+		response = await updateAPI.userInfo(action);
+		console.log(action?.avatar)
+		if(action?.avatar.length){
+			const formData = new FormData();
+			formData.append("avatar", action.avatar[0]);
+			response = await updateAPI.avatar(formData);
+		}
+
+		if (apiHasError(response)) {
+			dispatch({ isLoading: false, loginFormError: response.reason });
+			return;
+		}
+
+		const responseUser:any = await authAPI.me();
+		
+		dispatch({ isLoading: false, loginFormError: null });
+
+		console.log(response);
+		if (apiHasError(response)) {
+			dispatch(logout);
+			return;
+		}
+
+		dispatch({ user: transformUser(responseUser.response) });
+
+		window.router.go("/profile");
+	}catch(err){
+		dispatch({ isLoading: true });
+		console.log(err);
 	}
-
-	if (apiHasError(response)) {
-		dispatch({ isLoading: false, loginFormError: response.reason });
-		return;
-	}
-
-	const responseUser:any = await authAPI.me();
-	
-	dispatch({ isLoading: false, loginFormError: null });
-
-	console.log(response);
-	if (apiHasError(response)) {
-		dispatch(logout);
-		return;
-	}
-
-	dispatch({ user: transformUser(responseUser.response) });
-
-	window.router.go("/profile");
 };
 
 export const updateUserPassword = async (
@@ -59,25 +64,30 @@ export const updateUserPassword = async (
 	state: AppState,
 	action: IUpdateUserPasswordPayload,
 ) => {
-	dispatch({ isLoading: true });
-	const response = await updateAPI.password(action);
+	try{
+		dispatch({ isLoading: true });
+		const response = await updateAPI.password(action);
 
-	if (apiHasError(response)) {
-		dispatch({ isLoading: false, loginFormError: response.reason });
-		return;
+		if (apiHasError(response)) {
+			dispatch({ isLoading: false, loginFormError: response.reason });
+			return;
+		}
+
+		const responseUser:any = await authAPI.me();
+		
+		dispatch({ isLoading: false, loginFormError: null });
+
+		console.log(response);
+		if (apiHasError(response)) {
+			dispatch(logout);
+			return;
+		}
+
+		dispatch({ user: transformUser(responseUser.response) });
+
+		window.router.go("/profile");
+	}catch(err){
+		dispatch({ isLoading: true });
+		console.log(err);
 	}
-
-	const responseUser:any = await authAPI.me();
-	
-	dispatch({ isLoading: false, loginFormError: null });
-
-	console.log(response);
-	if (apiHasError(response)) {
-		dispatch(logout);
-		return;
-	}
-
-	dispatch({ user: transformUser(responseUser.response) });
-
-	window.router.go("/profile");
 };

@@ -18,49 +18,66 @@ class PopUp extends Block {
 	protected getStateFromProps() {
 		this.state = {
 			onAdd:async ()=>{
-				const login = {
-					login: (this.refs.popup.getContent() as HTMLInputElement).value,
-				};
-				const id= await userAPI.search(login);
-				console.log(id, (id as any)[0]);
-				const data={
-					users:[JSON.parse((id as any).response)[0].id],
-					chatId:this.props.chatId,
-				};
-				const response = await userAPI.addUser(data);
-				console.log(response);
-				this.props.store.dispatch({activePopup:null});
+				try{
+					const login = {
+						login: (this.refs.popup.getContent() as HTMLInputElement).value,
+					};
+					const id= await userAPI.search(login);
+					const data={
+						users:[JSON.parse((id as any).response)[0].id],
+						chatId:this.props.chatId,
+					};
+					const response = await userAPI.addUser(data);
+					console.log(response);
+					this.props.store.dispatch({activePopup:null});
+				}catch(err){
+					console.log(err);
+				}
+				
 			},
 			onDelete:async ()=>{
-				const login = {
-					login: (this.refs.popup.getContent() as HTMLInputElement).value,
-				};
-				const id= await userAPI.search(login);
-				console.log(JSON.parse((id as any).response)[0].id);
-				const data={
-					users:[JSON.parse((id as any).response)[0].id],
-					chatId:this.props.chatId,
-				};
-				const response = await userAPI.deleteUser(data);
-				console.log(response);
-				this.props.store.dispatch({activePopup:null});
+				try{
+					const login = {
+						login: (this.refs.popup.getContent() as HTMLInputElement).value,
+					};
+					const id= await userAPI.search(login);
+					const data={
+						users:[JSON.parse((id as any).response)[0].id],
+						chatId:this.props.chatId,
+					};
+					const response = await userAPI.deleteUser(data);
+					console.log(response);
+					this.props.store.dispatch({activePopup:null});
+				}catch(err){
+					console.log(err);
+				}
+				
                 
 			},
 			onCreate:async()=>{
-				const title = {
-					title: (this.refs.popup.getContent() as HTMLInputElement).value,
-				};
-				const response = await messagesAPI.newChat(title);
-				console.log(response);
-				this.props.store.dispatch({activePopup:null});
-				this.props.router.go(0);
+				try{
+					const title = {
+						title: (this.refs.popup.getContent() as HTMLInputElement).value,
+					};
+					const response = await messagesAPI.newChat(title);
+					console.log(response);
+					this.props.store.dispatch({activePopup:null});
+					this.props.router.go(0);
+				}catch(err){
+					console.log(err);
+				}
+				
 			},
 			onDeleteChat:async ()=>{
-				const chatId = this.props.chatId;
-				const response = await messagesAPI.deleteChat({chatId});
-				console.log(response);
-				this.props.store.dispatch({activePopup:null});
-				this.props.router.go(0);
+				try{
+					const chatId = this.props.chatId;
+					const response = await messagesAPI.deleteChat({chatId});
+					console.log(response);
+					this.props.store.dispatch({activePopup:null});
+					this.props.router.go(0);
+				}catch(err){
+					console.log(err);
+				}
 			},
 			handlePopupClose:()=>{
 				this.props.store.dispatch({activePopup:null});
