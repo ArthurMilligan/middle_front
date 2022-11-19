@@ -5,7 +5,7 @@
   from = "/messenger"
   force = true
   to = "/messenger"
-  status = 302
+  status = 200
 [[redirects]]
   from = "/signin"
   to = "/"
@@ -13,24 +13,24 @@
 [[redirects]]
   from = "/profile"
   to = "/"
-  status = 302
+  status = 200
 [[redirects]]
   from = "/profile-password"
   to = "/"
-  status = 302
+  status = 200
 [[redirects]]
   from = "/profile-settings"
   to = "/"
-  status = 302
+  status = 200
 [[redirects]]
   from = "/*"
   to = "/"
-  status = 302
+  status = 200
 [[redirects]]
   from = "/404"
   to = "/"
-  status = 302
+  status = 200
 [[redirects]]
   from = "/500"
   to = "/"
-  status = 302
+  status = 200
