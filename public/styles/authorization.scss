@@ -1,0 +1,67 @@
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin authorization{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding:50px 30px;
+    margin:40px 0 0 0;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+    &__header{
+        text-align: center;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 20px;
+    }
+    &__form{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    &__container{
+        display: flex;
+        flex-direction: column;
+        width: 280px;
+        margin:0 0 16px 0;
+        &:last-of-type{
+            margin:0 0 60px 0;
+        }
+    }
+    &__fieldName{
+        color: #999999;
+        font-weight: 500;
+        font-size: 9px;
+        line-height: 9px;
+    }
+    &__field{
+        width: 100%;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 13px;
+        padding:7px 0 7px 0;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #3369f3;
+        &:focus {
+            outline: none;
+        }
+    }
+    &__link{
+        width: fit-content;
+        margin: 15px 0 0 0;
+        color: #3369f3;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 11px;
+    }
+}
+.signin{
+    @include authorization;
+}
+.login{
+    @include authorization;
+}
