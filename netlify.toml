@@ -3,7 +3,8 @@
   command = "npm run build"
 [[redirects]]
   from = "/messenger"
-  to = "/"
+  force = true
+  to = "/messenger"
   status = 302
 [[redirects]]
   from = "/signin"
