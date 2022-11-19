@@ -2,6 +2,7 @@
   publish = "dist"
   command = "npm run build"
 [[redirects]]
-  from = "/*"
-  to = "/"
+  force = true
+  from = "/404"
+  to = "/404"
   status = 302
