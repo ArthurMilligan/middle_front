@@ -2,6 +2,42 @@
   publish = "dist"
   command = "npm run build"
 [[redirects]]
+  from = "/messenger"
+  force = true
+  to = "/"
+  status = 302
+[[redirects]]
+  from = "/signin"
+  force = true
+  to = "/"
+  status = 302
+[[redirects]]
+  from = "/profile"
+  force = true
+  to = "/"
+  status = 302
+[[redirects]]
+  from = "/profile-password"
+  force = true
+  to = "/"
+  status = 302
+[[redirects]]
+  from = "/profile-settings"
+  force = true
+  to = "/"
+  status = 302
+[[redirects]]
   from = "/*"
+  force = true
+  to = "/"
+  status = 302
+[[redirects]]
+  from = "/404"
+  force = true
+  to = "/"
+  status = 302
+[[redirects]]
+  from = "/500"
+  force = true
   to = "/"
   status = 302
