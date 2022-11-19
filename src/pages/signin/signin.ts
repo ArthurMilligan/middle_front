@@ -3,13 +3,15 @@ import Block from "../../core/Block";
 import { withRouter, withStore } from "../../helpers";
 import validator from "../../helpers/validator";
 import { signin } from "../../services/auth";
+import { Store } from "../../core";
 interface ISigninProps{
-    router?:CoreRouter
+    router?:CoreRouter;
+    store?:Store<AppState>;
 }
 class Signin extends Block {
 	static componentName = "Signin";
-	constructor({router}:ISigninProps){
-		super({router});
+	constructor({router, store}:ISigninProps){
+		super({router, store});
 		this.setProps({
 			toLogin:()=>{
 				this.props.router.go("/");

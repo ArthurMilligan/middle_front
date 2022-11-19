@@ -27,7 +27,6 @@ class MessageHeader extends Block {
             },
             handleAdd:(e:Event)=>{
                 e.stopPropagation();
-                console.log(this.props);
                 this.props.setIsActive(false);
                 this.props.store.dispatch({activePopup:"add"});
             },
@@ -40,6 +39,11 @@ class MessageHeader extends Block {
                 e.stopPropagation();
                 this.props.setIsActive(false);
                 this.props.store.dispatch({activePopup:"create"});
+            },
+            handleChatDelete:(e:Event)=>{
+                e.stopPropagation();
+                this.props.setIsActive(false);
+                this.props.store.dispatch({activePopup:"deleteChat"});
             },
 		});
 		
@@ -60,6 +64,8 @@ class MessageHeader extends Block {
         deleteUser?.addEventListener("click", this.props.handleDelete);
         const create = document.getElementsByClassName("messageHeader__create")[0];
         create?.addEventListener("click", this.props.handleCreate);
+        const deleteChat = document.getElementsByClassName("messageHeader__deleteChat")[0];
+        deleteChat?.addEventListener("click", this.props.handleChatDelete);
     }
 	componentWillUnmount(): void {
 		const el = document.getElementsByClassName("messageHeader__options")[0];
@@ -70,13 +76,14 @@ class MessageHeader extends Block {
         deleteUser?.removeEventListener("click", this.props.handleDelete);
 		const create = document.getElementsByClassName("messageHeader__create")[0];
         create?.removeEventListener("click", this.props.handleCreate);
+        const deleteChat = document.getElementsByClassName("messageHeader__deleteChat")[0];
+        deleteChat?.removeEventListener("click", this.props.handleChatDelete);
 	}
     
 	// Добавить аватар в пропс
 	render() {
 		const { avatar } = this.props;
 		const {isActive} = this.props;
-        console.log(this.props);
 		const avatarUrl = baseUrl + "resources/" + avatar?.replaceAll("/", "%2F");
 		return (`
         <header class = 'messageHeader'>
@@ -92,6 +99,7 @@ class MessageHeader extends Block {
                 <span class='messageHeader__menuItem messageHeader__add' >Добавить пользователя</span>
                 <span class='messageHeader__menuItem messageHeader__remove' >Удалить пользователя</span>
                 <span class='messageHeader__menuItem messageHeader__create' >Создать чат</span>
+                <span class='messageHeader__menuItem messageHeader__deleteChat' >Удалить чат</span>
             </div>
             {{/if}}
         </header>

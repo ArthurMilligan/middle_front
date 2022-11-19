@@ -32,7 +32,6 @@ class Messages extends Block {
 	}
 
 	protected render(): string {
-		console.log(this.props.messages);
 		return (`
         <div class="messagePage">
             {{{MessageHeader

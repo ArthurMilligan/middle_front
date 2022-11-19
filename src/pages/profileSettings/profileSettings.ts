@@ -85,10 +85,6 @@ class ProfileSettings extends Block {
                     && !nextState.errors.second_name && !nextState.errors.phone && !nextState.errors.avatar && !nextState.errors.display_name) {
 					console.log(this.props.store);
 					this.props.store.dispatch(updateUserInfo, signinData);
-					if(nextState.values.avatar){
-						console.log(signinData.avatar);
-						this.props.store.dispatch(updateUserAvatar, signinData.avatar);
-					}
 				}
 
 				console.log("action/save", signinData);

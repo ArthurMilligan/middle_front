@@ -1,3 +1,4 @@
+import { CloseButton } from "./ui/closeButton/CloseButton";
 import { Link } from "./ui/link/link";
 import { Loading } from "./ui/loading/loading";
 import {ProfileAvatar} from "./ui/profileAvatar/profileAvatar";
@@ -36,6 +37,7 @@ registerComponent(SideBar);
 registerComponent(ProfileAvatar);
 registerComponent(PopUp);
 registerComponent(Link);
+registerComponent(CloseButton);
 
 document.addEventListener("DOMContentLoaded", () => {
 	// Let App;

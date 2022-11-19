@@ -17,7 +17,7 @@ declare global {
 		loginFormError: string | null;
 		choicedChatId: number| null;
 		messages: IMessage[]|null|undefined;
-		activePopup: "add"|"delete"|"create"|null;
+		activePopup: "add"|"delete"|"create"|"deleteChat"|null;
 	};
 	export type TUser = {
 		id: number;

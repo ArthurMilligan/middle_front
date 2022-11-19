@@ -1,16 +1,17 @@
-import { Block, CoreRouter } from "../../core";
+import { Block, CoreRouter, Store } from "../../core";
 import { withRouter, withStore } from "../../helpers";
 import validator from "../../helpers/validator";
 import { login } from "../../services/auth";
 
 interface ILoginProps{
 	router?: CoreRouter;
+	store?: Store<AppState>;
 }
 
 class Login extends Block {
 	static componentName = "Login";
-	constructor({router}:ILoginProps){
-		super({router});
+	constructor({router, store}:ILoginProps){
+		super({router, store});
 		this.setProps({
 			toSignin:()=>{
 				this.props.router.go("/signin");

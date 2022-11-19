@@ -44,14 +44,13 @@ class MessagePage extends Block<IMessengerProps> {
 			},
 			setIsActive: (isActive:boolean)=>{this.setState({isActive:isActive});},
 			onClick: (e: MouseEvent) => {
+				e.preventDefault();
 				const elem = e.currentTarget as HTMLTextAreaElement;
 				this?.props?.store?.dispatch({choicedChatId:+elem.id});
 				ws.connect(+elem.id);
-				e.preventDefault();
 				console.log(ws.getlastMessages(+elem.id));
 				const nextProps = {currentUser: this.props.users?.find((i: any) => `${i.id}` === elem.id)};
 				this.setState({currId: elem.id});
-				e.preventDefault();
 				this.setProps(nextProps);
 				this.setState({isChoiced: true});
 			},
@@ -78,6 +77,7 @@ class MessagePage extends Block<IMessengerProps> {
 		const {currId} = this.state;
 		const activeAdd = this.props.activePopup;
 		const choicedChatId = this.props.store?.getState().choicedChatId;
+		console.log(this.props)
 		return (`
         <div class='body'>
         <nav class='bar'>

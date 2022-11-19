@@ -39,6 +39,9 @@ interface ILastMessageUser {
 interface INewChat{
     title:string;
 }
+interface IDeleteChat{
+    chatId: string;
+}
 
 
 export const messagesAPI = {
@@ -50,4 +53,6 @@ export const messagesAPI = {
 		HTTPTransport.get(`chats/${chatId}/`, { data: { ...data } }),
 	newChat:(data: INewChat) =>
 		HTTPTransport.post("chats", { data: { ...data }, headers: {"content-type":"application/json", "accept":"application/json"} }),
+	deleteChat:(data:IDeleteChat) =>
+		HTTPTransport.delete("chats", { data: { ...data }, headers: {"content-type":"application/json", "accept":"application/json"} }),
 };

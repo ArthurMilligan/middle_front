@@ -1,16 +1,18 @@
+import { CoreRouter } from './../../core/Router/CoreRouter';
 import { messagesAPI } from "./../../api/messages";
 import { userAPI } from "./../../api/user";
 import { Block, Store } from "../../core";
-import { withStore } from "../../helpers";
+import { withRouter, withStore } from "../../helpers";
 interface IPopUpProps{
     activeAdd: "add"|"delete";
     chatId:number;
     store?: Store<AppState>;
+    router?:CoreRouter;
 }
 class PopUp extends Block {
 	static componentName = "PopUp";
-	constructor({activeAdd, chatId, store}: IPopUpProps) {
-		super({activeAdd, chatId, store});
+	constructor({router,activeAdd, chatId, store}: IPopUpProps) {
+		super({router,activeAdd, chatId, store});
 	}
 
 	protected getStateFromProps() {
@@ -51,35 +53,59 @@ class PopUp extends Block {
 				const response = await messagesAPI.newChat(title);
 				console.log(response);
 				this.props.store.dispatch({activePopup:null});
+				this.props.router.go(0);
+			},
+			onDeleteChat:async ()=>{
+				const chatId = this.props.chatId;
+				const response = await messagesAPI.deleteChat({chatId});
+				console.log(response);
+				this.props.store.dispatch({activePopup:null});
+				this.props.router.go(0);
+			},
+			handlePopupClose:()=>{
+				this.props.store.dispatch({activePopup:null});
 			}
 		};
 	}
+
+
 	protected render(): string {
 		const isAdd = this.props.activeAdd === "add";
 		const isDelete = this.props.activeAdd === "delete";
 		const isCreate = this.props.activeAdd === "create";
-		console.log(this.props.chatId, this.props.activeAdd );
+		const isDeleteChat = this.props.activeAdd === "deleteChat";
 		return (`
         <div class="popup__background">
             <div class="popup">
-                <span></span>
+            {{{CloseButton className='popup__close' buttonName='close' onClick=handlePopupClose}}}
                 <form class='popup__form'>
-                    <div class="popup__container">
-                                <span class="popup__fieldName">Логин</span>
-                                {{{
-                                    Input
-                                    ref='popup'
-                                    type='text'
-                                    value=''
-                                    name='popup'
-                                    className='popup__field'
-                                }}}
-                    </div>
+                    {{#if ${!isDeleteChat}}}
+                        <div class="popup__container">
+                                    <span class="popup__fieldName">
+                                        {{#if ${isCreate}}}
+                                            Название чата
+                                        {{else}}
+                                            Логин
+                                        {{/if}}
+                                    </span>
+                                    {{{
+                                        Input
+                                        ref='popup'
+                                        type='text'
+                                        value=''
+                                        name='popup'
+                                        className='popup__field'
+                                    }}}
+                        </div>
+                    {{/if}}
                     {{#if ${isAdd}}}
                         {{{Button className="popup__button" buttonText="Добавить" buttonName="add" onClick=onAdd}}}
                     {{/if}}
                     {{#if ${isDelete}}}
                         {{{Button className="popup__button" buttonText="Удалить" buttonName="delete" onClick=onDelete}}}
+                    {{/if}}
+                    {{#if ${isDeleteChat}}}
+                        {{{Button className="popup__button" buttonText="Удалить" buttonName="delete" onClick=onDeleteChat}}}
                     {{/if}}
                     {{#if ${isCreate}}}
                         {{{Button className="popup__button" buttonText="Создать" buttonName="delete" onClick=onCreate}}}
@@ -93,4 +119,4 @@ class PopUp extends Block {
         `);
 	}
 }
-export default withStore(PopUp);
+export default withRouter(withStore(PopUp));

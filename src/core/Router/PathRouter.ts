@@ -9,9 +9,13 @@ export class PathRouter implements CoreRouter {
 		return this;
 	}
 
-	go(pathname: string) {
-		window.history.pushState({}, "", pathname);
-		this.onRouteChange(pathname);
+	go(pathname: string|number) {
+		if(typeof(pathname)==="string"){
+			window.history.pushState({}, "", pathname);
+			this.onRouteChange(pathname);
+		}else{
+			window.history.go(pathname);
+		}
 	}
 
 	back() {
