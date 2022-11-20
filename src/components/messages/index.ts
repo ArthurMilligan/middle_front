@@ -1,1 +1,3 @@
-export {Messages as defualt} from './messages';
+import Messages from "./messages";
+
+export default Messages;

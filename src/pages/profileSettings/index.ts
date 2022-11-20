@@ -1,1 +1,2 @@
-export {ProfileSettings as default} from './profileSettings';
+import ProfileSettings from "./profileSettings";
+export default ProfileSettings;

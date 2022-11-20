@@ -1,3 +1,35 @@
 [build]
   publish = "dist"
-  command = "npm run start"
+  command = "npm run build"
+[[redirects]]
+  from = "/messenger"
+  to = "/"
+  status = 200
+[[redirects]]
+  from = "/signin"
+  to = "/"
+  status = 200
+[[redirects]]
+  from = "/profile"
+  to = "/"
+  status = 200
+[[redirects]]
+  from = "/profile-password"
+  to = "/"
+  status = 200
+[[redirects]]
+  from = "/profile-settings"
+  to = "/"
+  status = 200
+[[redirects]]
+  from = "/"
+  to = "/"
+  status = 200
+[[redirects]]
+  from = "/404"
+  to = "/"
+  status = 200
+[[redirects]]
+  from = "/500"
+  to = "/"
+  status = 200

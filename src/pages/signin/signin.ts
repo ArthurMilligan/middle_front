@@ -1,26 +1,42 @@
-import Block from '../../core/Block';
-import validator from '../../helpers/validator';
-
-export class Signin extends Block {
+import { CoreRouter } from "./../../core/Router/CoreRouter";
+import Block from "../../core/Block";
+import { withRouter, withStore } from "../../helpers";
+import validator from "../../helpers/validator";
+import { signin } from "../../services/auth";
+import { Store } from "../../core";
+interface ISigninProps{
+    router?:CoreRouter;
+    store?:Store<AppState>;
+}
+class Signin extends Block {
+	static componentName = "Signin";
+	constructor({router, store}:ISigninProps){
+		super({router, store});
+		this.setProps({
+			toLogin:()=>{
+				this.props.router.go("/");
+			}
+		});
+	}
 	protected getStateFromProps() {
 		this.state = {
 			values: {
-				login: '',
-				password: '',
-				email: '',
-				first_name: '',
-				second_name: '',
-				phone: '',
-				confirmPassword: '',
+				login: "",
+				password: "",
+				email: "",
+				first_name: "",
+				second_name: "",
+				phone: "",
+				confirmPassword: "",
 			},
 			errors: {
-				login: '',
-				password: '',
-				email: '',
-				first_name: '',
-				second_name: '',
-				phone: '',
-				confirmPassword: '',
+				login: "",
+				password: "",
+				email: "",
+				first_name: "",
+				second_name: "",
+				phone: "",
+				confirmPassword: "",
 			},
 			onRegister: () => {
 				const signinData = {
@@ -36,23 +52,32 @@ export class Signin extends Block {
 				const nextState = {
 					...this.state,
 					errors: {
-						login: validator('login', signinData.login),
-						password: validator('password', signinData.password),
-						email: validator('email', signinData.email),
-						first_name: validator('first_name', signinData.first_name),
-						second_name: validator('second_name', signinData.second_name),
-						phone: validator('phone', signinData.phone),
-						confirmPassword: validator('confirmPassword', signinData.confirmPassword),
+						login: validator("login", signinData.login),
+						password: validator("password", signinData.password),
+						email: validator("email", signinData.email),
+						first_name: validator("first_name", signinData.first_name),
+						second_name: validator("second_name", signinData.second_name),
+						phone: validator("phone", signinData.phone),
+						confirmPassword: validator("confirmPassword", signinData.confirmPassword),
 					},
 					values: {...signinData},
 				};
-				if (nextState.values.password !== nextState.values.confirmPassword || nextState.values.confirmPassword === '') {
-					nextState.errors.confirmPassword = 'Разные пароли';
+				if (nextState.values.password !== nextState.values.confirmPassword || nextState.values.confirmPassword === "") {
+					nextState.errors.confirmPassword = "Разные пароли";
 				}
 
 				this.setState(nextState);
 
-				console.log('action/registration', signinData);
+				if (!nextState.errors.login && !nextState.errors.password 
+                    && !nextState.errors.email && !nextState.errors.first_name 
+                    && !nextState.errors.second_name && !nextState.errors.phone 
+                    && !nextState.errors.confirmPassword) {
+					console.log(this.props.store);
+					this.props.store.dispatch(signin, signinData);
+				}
+                
+
+				console.log("action/registration", signinData);
 			},
 			onBlur: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
@@ -69,15 +94,15 @@ export class Signin extends Block {
 					},
 					values: {...this.state.values, ...signinData},
 				};
-				if (inputName === 'confirmPassword' && nextState.values.password !== nextState.values.confirmPassword) {
-					nextState.errors.confirmPassword = 'Разные пароли';
+				if (inputName === "confirmPassword" && nextState.values.password !== nextState.values.confirmPassword) {
+					nextState.errors.confirmPassword = "Разные пароли";
 				}
 
 				this.setState(nextState);
 			},
 			onFocus: (e: FocusEvent) => {
 				const inputName = (e.target as HTMLTextAreaElement).name;
-				this.refs[inputName + 'Error'].setProps({error: ''});
+				this.refs[inputName + "Error"].setProps({error: ""});
 			},
 		};
 	}
@@ -189,9 +214,10 @@ export class Signin extends Block {
                     </div>
                     {{{Button buttonText="Зарегистрироваться" buttonName="Register" onClick=onRegister}}}
                 </form>
-                <a class='signin__link' href='./index.html'>Войти</a>
+                {{{Link className='signin__link' linkText='Войти' onClick=toLogin}}}
             </div>
         </main>
         `);
 	}
 }
+export default withRouter(withStore(Signin));

@@ -1,1 +1,3 @@
-export {Error500 as default} from './500';
+import Error500 from "./500";
+
+export default Error500;

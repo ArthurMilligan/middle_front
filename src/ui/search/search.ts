@@ -1,10 +1,11 @@
-import {Block} from '../../core';
+import {Block} from "../../core";
 
 type ISearchProps = {
 	onChange: () => Record<string, unknown>;
 	value: string;
 };
 export class Search extends Block {
+	static componentName = "Search";
 	constructor({onChange, value}: ISearchProps) {
 		super({value, events: {change: onChange}});
 	}
