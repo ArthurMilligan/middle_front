@@ -14,6 +14,7 @@ import Start from "./components/start";
 import ErrorBanner from "./ui/ErrorBanner";
 import Chat from "./ui/chat";
 import {Search} from "./ui/search/search";
+import "./style.scss";
 // Require("babel-core/register");
 
 import {renderDOM, registerComponent, Block, Store, PathRouter} from "./core";
@@ -84,13 +85,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	renderDOM(new Loading());
 	store.on("changed", (prevState, nextState) => {
-		if (process.env.DEBUG) {
-			console.log(
-				"%cstore updated",
-				"background: #222; color: #bada55",
-				nextState,
-			);
-		}
+		
+		console.log(
+			"%cstore updated",
+			"background: #222; color: #bada55",
+			nextState,
+		);
+		
 	});
 	initRouter(router, store);
 
