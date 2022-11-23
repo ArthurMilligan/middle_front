@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseUrl } from "./constant";
 import HTTPTransport from "./httpRequest";
 

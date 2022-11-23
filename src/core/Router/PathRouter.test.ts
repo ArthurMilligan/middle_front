@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {PathRouter} from "./PathRouter";
 
 describe("Router", () => {

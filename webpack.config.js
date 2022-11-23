@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -25,6 +27,7 @@ module.exports = {
 		static: {
 			directory: path.join(__dirname, "dist"),
 		},
+		open: true,
 		compress: true,
 		port: 4000,
 		historyApiFallback: true,
