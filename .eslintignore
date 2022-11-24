@@ -1,4 +1,6 @@
 /build
 **/*.min.js
 **/*.json
+**/*.config.js
+/src/core/**/*.ts
 /node_modules 

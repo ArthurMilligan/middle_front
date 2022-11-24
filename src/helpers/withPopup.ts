@@ -1,5 +1,4 @@
 import { BlockClass } from "../core";
-import isEqual from "./isEqual";
 
 type WithPopupProps = { activePopup: "add"|"delete"|null;};
 

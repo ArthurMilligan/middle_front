@@ -10,7 +10,7 @@ type IMessageFormProps = {
 
 export class MessageForm extends Block {
 	static componentName = "MessageForm";
-	constructor({onSubmit,onRegister}: IMessageFormProps) {
+	constructor({onSubmit}: IMessageFormProps) {
 		super({events: {submit: onSubmit}});
 	}
 
@@ -23,7 +23,7 @@ export class MessageForm extends Block {
 				message: "",
 			},
 			
-			onBlur: (e: FocusEvent) => {
+			onBlur: () => {
 				const messageData = {
 					message: (this.refs.message.getContent() as HTMLInputElement).value,
 				};
@@ -36,7 +36,7 @@ export class MessageForm extends Block {
 				};
 				this.setState(nextState);
 			},
-			onFocus: (e: FocusEvent) => {
+			onFocus: () => {
 				this.refs.messageError.setProps({error: ""});
 			},
 		};

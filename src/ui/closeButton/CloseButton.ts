@@ -14,6 +14,6 @@ export class CloseButton extends Block {
 	}
 
 	protected render(): string {
-		return (`<button class='{{className}}' type='button' name='{{buttonName}}'>x</button>`);
+		return ("<button class='{{className}}' type='button' name='{{buttonName}}'>x</button>");
 	}
 }

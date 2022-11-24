@@ -1,8 +1,6 @@
 import { CoreRouter } from "./../../core/Router/CoreRouter";
 import {Block} from "../../core";
 import { withRouter } from "../../helpers";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const url = require("../../../public/img/vectorBack.png");
 interface ISideBarProps{
     router:CoreRouter;
 }
